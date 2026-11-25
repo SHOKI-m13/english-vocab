@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="84語を英日・日英の両方向から反復学習。">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+  <title>英単語ノート</title>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><span aria-hidden="true">Aa</span> 英単語ノート</div>
+      <nav aria-label="メインメニュー">
+        <button type="button" data-view="study" aria-current="page">学習</button>
+        <button type="button" data-view="stats">記録</button>
+        <button type="button" data-view="settings">設定</button>
+      </nav>
+    </header>
+    <main id="study">
+      <div class="filters">
+        <label>学習範囲<select id="scope"><option value="all">ALL · 84語</option><option value="7">Lesson 7 · 37語</option><option value="8">Lesson 8 · 47語</option><option value="weak">苦手単語のみ</option></select></label>
+        <label>出題モード<select id="mode"><option value="both">両方向ランダム</option><option value="en">英語 → 日本語</option><option value="ja">日本語 → 英語</option></select></label>
+      </div>
+      <section class="progress-panel" aria-label="学習進捗">
+        <div class="progress-top"><strong id="round"></strong><span id="remaining"></span></div>
+        <div class="progress-count"><strong id="progress-count"></strong><span id="achievement"></span></div>
+        <progress id="bar" aria-label="暗記達成率" max="1" value="0"></progress>
+        <div class="directions"><span id="english-progress"></span><span id="japanese-progress"></span></div>
+      </section>
+      <button type="button" id="card" class="card">
+        <span id="direction" class="direction"></span>
+        <strong id="prompt"></strong>
+        <span id="answer" hidden></span>
+        <span id="hint" class="hint">タップして答えを見る</span>
+      </button>
+      <section id="result" class="card result" hidden></section>
+      <div class="bottom">
+        <div id="grades" class="grades">
+          <button id="wrong" type="button" class="wrong" disabled><b>×</b> 覚えていない</button>
+          <button id="correct" type="button" class="correct" disabled><b>○</b> 覚えていた</button>
+        </div>
+        <button id="undo" type="button" class="undo" disabled>直前の回答を取り消す</button>
+      </div>
+    </main>
+    <main id="stats" hidden>
+      <h1>学習記録</h1>
+      <dl id="totals" class="metrics"></dl>
+      <div class="section-heading">
+        <h2>単語別の記録</h2>
+        <label>表示順<select id="sort"><option value="lesson">教材順</option><option value="accuracy">正答率の低い順</option><option value="wrong">不正解回数の多い順</option></select></label>
+      </div>
+      <ul id="word-list" class="word-list"></ul>
+    </main>
+    <main id="settings" hidden>
+      <h1>設定</h1>
+      <div class="settings-panel">
+        <label>暗記判定に必要な連続正解<select id="threshold"><option value="1">1回</option><option value="2">2回</option><option value="3">3回</option><option value="4">4回</option><option value="5">5回</option></select></label>
+        <label>画面テーマ<select id="theme"><option value="system">端末の設定に合わせる</option><option value="light">ライト</option><option value="dark">ダーク</option></select></label>
+        <button type="button" id="reset" class="danger">学習記録をすべてリセット</button>
+      </div>
+    </main>
+    <p id="notice" role="status" hidden></p>
+  </div>
+  <dialog id="reset-dialog">
+    <form method="dialog">
+      <h2>学習記録をリセットしますか？</h2>
+      <p>すべての回答履歴と進捗が削除されます。</p>
+      <div class="dialog-actions"><button value="cancel" autofocus>キャンセル</button><button value="reset" class="danger">リセット</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
